@@ -1,7 +1,7 @@
 const uuid = require('uuid')
 const path = require('path');
 const {Add, AddInfo, User} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
+const ApiError = require('../exceptions/apiError')
 const {appendFile} = require("fs");
 const AddService = require('../service/addService')
 const { Op} = require('sequelize')
