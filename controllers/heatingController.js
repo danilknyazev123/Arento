@@ -1,16 +1,24 @@
 const {Heating} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
+const ApiError = require('../exceptions/apiError')
 
 class HeatingController {
-    async create(req, res){
-        const {value} = req.body
-        const heat = await Heating.create({value})
-        return res.json(heat)
+    async create(req, res, next){
+        try{
+            const {value} = req.body
+            const heat = await Heating.create({value})
+            return res.json(heat)
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
 
-    async getAll(req, res){
-        const heat = await Heating.findAll()
-        return res.json(heat)
+    async getAll(req, res, next){
+        try{
+            const heat = await Heating.findAll()
+            return res.json(heat)
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
 
 }

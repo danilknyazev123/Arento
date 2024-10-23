@@ -1,18 +1,25 @@
 const {Area} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
+const ApiError = require('../exceptions/apiError')
 
 class AreaController {
-    async create(req, res) {
-        const {value} = req.body
-        const area = await Area.create({value})
-        return res.json(area)
+    async create(req, res, next) {
+        try{
+            const {value} = req.body
+            const area = await Area.create({value})
+            return res.json(area)
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
 
-    async getAll(req, res){
-        const area = await Area.findAll()
-        return res.json(area)
+    async getAll(req, res, next){
+        try{
+            const area = await Area.findAll()
+            return res.json(area)
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
-
 }
 
 module.exports = new AreaController()

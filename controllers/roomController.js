@@ -1,5 +1,5 @@
 const {Room} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
+const ApiError = require('../exceptions/apiError')
 
 class RoomController {
     async create(req, res){

@@ -1,9 +1,6 @@
-const uuid = require('uuid')
 const path = require('path');
-const {Place, Add, Blog, AddInfo} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
-const {appendFile} = require("fs");
-const fs = require("fs");
+const {Place} = require('../models/models')
+const ApiError = require('../exceptions/apiError')
 
 
 class PlacesController {

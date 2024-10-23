@@ -1,16 +1,24 @@
 const {Bedroom} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
+const ApiError = require('../exceptions/apiError')
 
 class BedroomController {
-    async create(req, res){
-        const {value} = req.body
-        const bedroom = await Bedroom.create({value})
-        return res.json(bedroom)
+    async create(req, res, next){
+        try{
+            const {value} = req.body
+            const bedroom = await Bedroom.create({value})
+            return res.json(bedroom)
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
 
-    async getAll(req, res){
-        const bedroom = await Bedroom.findAll()
-        return res.json(bedroom)
+    async getAll(req, res, next){
+        try{
+            const bedroom = await Bedroom.findAll()
+            return res.json(bedroom)
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
 
 }

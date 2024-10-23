@@ -1,5 +1,5 @@
 const {Repair} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
+const ApiError = require('../exceptions/apiError')
 
 class RepairController {
     async create(req, res) {

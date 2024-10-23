@@ -1,4 +1,3 @@
-const  jwt = require('jsonwebtoken')
 const ApiError = require("../exceptions/apiError");
 const tokenService = require("../service/tokenService");
 

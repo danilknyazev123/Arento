@@ -1,16 +1,25 @@
 const {Parking} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
+const ApiError = require('../exceptions/apiError')
 
 class ParkingController {
-    async create(req, res) {
-        const {value} = req.body
-        const parking = await Parking.create({value})
-        return res.json(parking)
+    async create(req, res, next) {
+        try{
+            const {value} = req.body
+            const parking = await Parking.create({value})
+            return res.json(parking)
+        } catch (e){
+            next(ApiError.BadRequest(e.message))
+        }
+
     }
 
-    async getAll(req, res){
-        const parking = await Parking.findAll()
-        return res.json(parking)
+    async getAll(req, res, next){
+        try{
+            const parking = await Parking.findAll()
+            return res.json(parking)
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
 
 }

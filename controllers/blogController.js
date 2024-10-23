@@ -1,8 +1,7 @@
 const uuid = require('uuid')
 const path = require('path');
 const {Blog} = require('../models/models')
-const ApiError = require('../exceptions/ApiError')
-const {appendFile} = require("fs");
+const ApiError = require('../exceptions/apiError')
 
 class BlogController {
     async create(req, res, next){

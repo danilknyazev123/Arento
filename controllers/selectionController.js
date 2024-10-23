@@ -1,4 +1,4 @@
-const ApiError = require('../exceptions/ApiError')
+const ApiError = require('../exceptions/apiError')
 const mailService = require("../service/mailService");
 
 class SelectionController {
