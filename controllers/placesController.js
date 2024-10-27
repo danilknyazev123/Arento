@@ -59,7 +59,13 @@ class PlacesController {
         let offset = page * limit - limit
         let places;
 
-        places = await Place.findAndCountAll({limit, offset})
+        places = await Place.findAndCountAll(
+            {
+                order: [['id', 'ASC']],
+                limit,
+                offset
+            }
+        )
 
         return res.json(places)
     }
