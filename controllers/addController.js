@@ -312,6 +312,7 @@ class AddController {
             const add = await Add.update(
                 {
                     isChecked: 'yes',
+                    message: '',
                     longitude: longitude,
                     latitude: latitude,
                     areaId: areaId
