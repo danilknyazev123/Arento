@@ -5,7 +5,6 @@ const mailService = require('./mailService')
 const tokenService = require('./tokenService')
 const UserDto = require('../dtos/userDto')
 const ApiError = require('../exceptions/apiError')
-const fs = require("fs");
 
 class UserService {
     async registration(email, nickname, password, role, img) {
@@ -18,7 +17,7 @@ class UserService {
 
         const user = await User.create({email, nickname, password: hashPassword, activationLink, img})
         const tokenModel = await TokenModel.create({userId: user.id})
-        await mailService.sendActivationMail(email, `${process.env.API_URL}/api/user/activate/${activationLink}`)
+        await mailService.sendActivationMail(email, `https://arento.ru/api/user/activate/${activationLink}`)
         let fs = require('fs');
         fs.mkdir('static/users/user' + user.id, { recursive: true }, err => {
             if(err) throw err;
