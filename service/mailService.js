@@ -30,7 +30,7 @@ class MailService {
         })
     }
 
-    async sendSelectionApplicationAnimal(name, area, firstDate, lastDate, peopleCount, roomCount, budget, animal, animalDesc, wishes){
+    async sendSelectionApplicationAnimal(name, area, firstDate, lastDate, peopleCount, roomCount, budget, animal, animalDesc, wishes, phone){
         if(animal === 'Да' && animalDesc){
             await this.transporter.sendMail({
                 from: process.env.SMTP_USER,
@@ -50,13 +50,14 @@ class MailService {
                             <h3>Описание животного: ${animalDesc}</h3>
                             <h3>Пожелания: ${wishes}</h3>
                             <h3>Бюджет (за сутки): ${budget}</h3>
+                            <h3>Телефон: ${phone}</h3>
                         </div>
                     `
             })
         }
     }
 
-    async sendSelectionApplication(name, area, firstDate, lastDate, peopleCount, roomCount, budget, wishes){
+    async sendSelectionApplication(name, area, firstDate, lastDate, peopleCount, roomCount, budget, wishes, phone){
         await this.transporter.sendMail({
             from: process.env.SMTP_USER,
             to: process.env.SMTP_SELECTION,
@@ -74,6 +75,7 @@ class MailService {
                             <h3>С животными: Нет</h3>
                             <h3>Пожелания: ${wishes}</h3>
                             <h3>Бюджет (за сутки): ${budget}</h3>
+                            <h3>Телефон: ${phone}</h3>
                         </div>
                     `
         })
