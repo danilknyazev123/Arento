@@ -2,7 +2,7 @@ const {Favourites} = require('../models/models')
 const ApiError = require('../exceptions/apiError')
 
 class FavouritesController {
-    async create(req, res){
+    async create(req, res, next){
         try{
             const {value} = req.body
             const bedroom = await Favourites.create({value})
@@ -12,7 +12,7 @@ class FavouritesController {
         }
     }
 
-    async getAll(req, res){
+    async getAll(req, res, next){
         try{
             const bedroom = await Favourites.findAll()
             return res.json(bedroom)

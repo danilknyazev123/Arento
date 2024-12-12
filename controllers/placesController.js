@@ -50,24 +50,28 @@ class PlacesController {
         }
     }
 
-    async getAll(req, res) {
-        let {limit, page} = req.query
+    async getAll(req, res, next) {
+        try{
+            let {limit, page} = req.query
 
-        page = page || 1
-        limit = limit || 33
+            page = page || 1
+            limit = limit || 33
 
-        let offset = page * limit - limit
-        let places;
+            let offset = page * limit - limit
+            let places;
 
-        places = await Place.findAndCountAll(
-            {
-                order: [['id', 'ASC']],
-                limit,
-                offset
-            }
-        )
+            places = await Place.findAndCountAll(
+                {
+                    order: [['id', 'ASC']],
+                    limit,
+                    offset
+                }
+            )
 
-        return res.json(places)
+            return res.json(places)
+        } catch (e) {
+            next(e)
+        }
     }
 
     async getOne(req, res, next) {

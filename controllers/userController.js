@@ -23,7 +23,7 @@ class UserController {
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
         } catch (e) {
-            next(e)
+            next(ApiError.BadRequest('Непредвиденная ошибка'))
         }
     }
 
@@ -34,7 +34,7 @@ class UserController {
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData);
         } catch (e) {
-            next(e)
+            next(ApiError.BadRequest('Непредвиденная ошибка'))
         }
     }
 
@@ -45,7 +45,7 @@ class UserController {
             res.clearCookie('refreshToken')
             return res.json(token)
         } catch (e) {
-            next(e)
+            next(ApiError.BadRequest('Непредвиденная ошибка'))
         }
     }
 
@@ -55,7 +55,7 @@ class UserController {
             await  userService.activate(activationLink)
             return res.redirect(process.env.CLIENT_URL)
         } catch (e) {
-            next(e)
+            next(ApiError.BadRequest('Непредвиденная ошибка'))
         }
     }
 
@@ -66,18 +66,22 @@ class UserController {
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData);
         } catch (e) {
-            next(e)
+            next(ApiError.BadRequest('Непредвиденная ошибка'))
         }
     }
 
-    async getOne(req, res) {
-        const {id} = req.params
-        const user = await User.findOne(
-            {
-                where: {id}
-            },
-        )
-        return res.json(user)
+    async getOne(req, res, next) {
+        try{
+            const {id} = req.params
+            const user = await User.findOne(
+                {
+                    where: {id}
+                },
+            )
+            return res.json(user)
+        } catch (e) {
+            next(ApiError.BadRequest('Непредвиденная ошибка'))
+        }
     }
 
     async getAll(req, res, next) {
@@ -85,7 +89,7 @@ class UserController {
             const users = await userService.getAllUsers()
             return res.json(users)
         } catch (e) {
-            next(e)
+            next(ApiError.BadRequest('Непредвиденная ошибка'))
         }
     }
 
@@ -96,7 +100,7 @@ class UserController {
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData)
         } catch (e) {
-            next(e)
+            next(ApiError.BadRequest('Непредвиденная ошибка'))
         }
     }
 }

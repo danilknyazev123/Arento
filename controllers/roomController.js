@@ -2,15 +2,23 @@ const {Room} = require('../models/models')
 const ApiError = require('../exceptions/apiError')
 
 class RoomController {
-    async create(req, res){
-        const {value} = req.body
-        const room = await Room.create({value})
-        return res.json(room)
+    async create(req, res, next){
+        try{
+            const {value} = req.body
+            const room = await Room.create({value})
+            return res.json(room)
+        } catch (e) {
+            return next(ApiError.BadRequest('Непредвиденная ошибка'))
+        }
     }
 
-    async getAll(req, res){
-        const room = await Room.findAll()
-        return res.json(room)
+    async getAll(req, res, next){
+        try{
+            const room = await Room.findAll()
+            return res.json(room)
+        } catch (e) {
+            return next(ApiError.BadRequest('Непредвиденная ошибка'))
+        }
     }
 
 }

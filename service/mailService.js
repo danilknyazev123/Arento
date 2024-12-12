@@ -15,30 +15,35 @@ class MailService {
     }
 
     async sendActivationMail(to, link) {
-        await this.transporter.sendMail({
-            from: process.env.SMTP_USER,
-            to,
-            subject: 'Активация аккаунта на' + ' ' + 'Arento.ru',
-            text:'',
-            html:
-                `
+        try{
+            await this.transporter.sendMail({
+                from: process.env.SMTP_USER,
+                to,
+                subject: 'Активация аккаунта на' + ' ' + 'Arento.ru',
+                text:'',
+                html:
+                    `
                     <div>
                         <h1>Для активации перейдите по ссылке</h1>
                         <a href="${link}">${link}</a>
                     </div>
                 `
-        })
+            })
+        } catch (e) {
+            return null
+        }
     }
 
-    async sendSelectionApplicationAnimal(name, area, firstDate, lastDate, peopleCount, roomCount, budget, animal, animalDesc, wishes, phone){
-        if(animal === 'Да' && animalDesc){
-            await this.transporter.sendMail({
-                from: process.env.SMTP_USER,
-                to: process.env.SMTP_SELECTION,
-                subject: 'Заявка на подбор!',
-                text:'',
-                html:
-                    `
+    async  sendSelectionApplicationAnimal(name, area, firstDate, lastDate, peopleCount, roomCount, budget, animal, animalDesc, wishes, phone){
+        try{
+            if(animal === 'Да' && animalDesc){
+                await this.transporter.sendMail({
+                    from: process.env.SMTP_USER,
+                    to: process.env.SMTP_SELECTION,
+                    subject: 'Заявка на подбор!',
+                    text:'',
+                    html:
+                        `
                         <div>
                             <h1>!!! Заявка на подбор !!!</h1>
                             <h3>От ${name}</h3>
@@ -53,18 +58,22 @@ class MailService {
                             <h3>Телефон: ${phone}</h3>
                         </div>
                     `
-            })
+                })
+            }
+        } catch (e) {
+            return null
         }
     }
 
     async sendSelectionApplication(name, area, firstDate, lastDate, peopleCount, roomCount, budget, wishes, phone){
-        await this.transporter.sendMail({
-            from: process.env.SMTP_USER,
-            to: process.env.SMTP_SELECTION,
-            subject: 'Заявка на подбор!',
-            text:'',
-            html:
-                `
+        try{
+            await this.transporter.sendMail({
+                from: process.env.SMTP_USER,
+                to: process.env.SMTP_SELECTION,
+                subject: 'Заявка на подбор!',
+                text:'',
+                html:
+                    `
                         <div>
                             <h1>!!! Заявка на подбор !!!</h1>
                             <h3>От ${name}</h3>
@@ -78,7 +87,10 @@ class MailService {
                             <h3>Телефон: ${phone}</h3>
                         </div>
                     `
-        })
+            })
+        } catch (e) {
+            return null
+        }
     }
 }
 

@@ -18,18 +18,22 @@ class BlogController {
             next(ApiError.BadRequest(e.message))
         }
     }
-    async getAll(req, res) {
-        let {limit, page} = req.query
+    async getAll(req, res, next) {
+        try{
+            let {limit, page} = req.query
 
-        page = page || 1
-        limit = limit || 20
+            page = page || 1
+            limit = limit || 20
 
-        let offset = page * limit - limit
-        let blog;
+            let offset = page * limit - limit
+            let blog;
 
-        blog = await Blog.findAndCountAll({limit, offset})
+            blog = await Blog.findAndCountAll({limit, offset})
 
-        return res.json(blog)
+            return res.json(blog)
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
 }
 
